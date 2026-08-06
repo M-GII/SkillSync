@@ -10,7 +10,7 @@ export default function Navbar(){
                 Job Tracker
               </Link>
               <div className="flex items-center gap-4">
-                <Link href="/sign-in" ><Button variant="ghost" className="text-gray-700 hover:text-black">Login</Button></Link>
+                <Link href="/login" ><Button variant="ghost" className="text-gray-700 hover:text-black">Login</Button></Link>
                  <Link href="/sign-up"><Button className="bg-primary hover:text-primary/90">Sign Up</Button></Link>
               </div>
             </div>
