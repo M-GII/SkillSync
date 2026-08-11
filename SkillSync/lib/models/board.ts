@@ -13,3 +13,5 @@ const BoardSchema = new Schema<IBoard>({
     userId: { type: String, required: true , index: true},
     columns: [{ type: Schema.Types.ObjectId, ref: "Column" }],
 }, { timestamps: true });
+
+export default mongoose.models.Board || mongoose.model<IBoard>("Board", BoardSchema);
