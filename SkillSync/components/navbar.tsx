@@ -15,7 +15,7 @@ export default function Navbar() {
 
                 <Link href="/" className="flex items-center gap-2 text-xl font-semibold text-primary">
                     <Briefcase></Briefcase>
-                    Job Tracker
+                    SkillSync
                 </Link>
 
                 <div className="flex items-center gap-4">
