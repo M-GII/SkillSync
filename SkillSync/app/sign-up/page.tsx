@@ -31,7 +31,7 @@ export default function SignUp() {
             if (result.error) {
                 setError(result.error.message || "Failed to create an account. Please try again.");
             } else {
-                router.push("/dashboard");
+                 router.push(`/profile-setup?name=${encodeURIComponent(name)}`)
             }
         } catch (err) {
 

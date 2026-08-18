@@ -25,3 +25,14 @@ export interface Board {
   name: string;
   columns: Column[];
 }
+
+export interface Profile {
+    _id: string;
+    userId: string;
+    fullName: string;
+    location?: string;
+    education?: string;
+    skills?: string[];
+    desiredRole?: string;
+    yearsExperience?: number;
+}

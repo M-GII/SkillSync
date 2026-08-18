@@ -1,15 +1,20 @@
 "use client"
 
-import { Briefcase } from "lucide-react";
+import { Briefcase, Edit2 } from "lucide-react";
 import Link from "next/link";
 import { Button } from "./ui/button";
-import {useSession} from "@/lib/auth/auth-client"
+import { useState } from "react";
+import { useSession } from "@/lib/auth/auth-client"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuLabel, DropdownMenuTrigger } from "./ui/dropdown-menu";
 import { Avatar, AvatarFallback } from "./ui/avatar";
 import SignoutButton from "./sign-out-btn";
-export default function Navbar() {
-    const{data:session}= useSession()
+import EditProfile from "./edit-profile";
+import { Profile } from "@/lib/models/models.types";
+export default function Navbar({ profile }: { profile: Profile }) {
+    const { data: session } = useSession()
+    const [isEditingProfile, setIsEditingProfile] = useState(false);
     return (
+        <>
         <nav className="border-b border-gray-200 bg-white ">
             <div className="container mx-auto flex h-16 items-center px-4 justify-between">
 
@@ -21,9 +26,14 @@ export default function Navbar() {
                 <div className="flex items-center gap-4">
                     {session?.user ? (
                         <>
-                            <Link href="/dashboard"> <Button variant="ghost" className="text-gray-700 hover:text-black">Dashboard</Button></Link>
+                            {profile && (
+                                <Link href="/dashboard">
+                                    <Button variant="ghost" className="text-gray-700 hover:text-black">Dashboard</Button>
+                                </Link>
+                            )}
+
                             <DropdownMenu>
-                                <DropdownMenuTrigger render={<Button variant="ghost"  className="relative h-8 w-8 rounded-full" />}>
+                                <DropdownMenuTrigger render={<Button variant="ghost" className="relative h-8 w-8 rounded-full" />}>
                                     <Avatar className="h-8 w-8">
                                         <AvatarFallback className="bg-primary text-white">
                                             {session.user.name?.[0]?.toUpperCase() ?? "U"}
@@ -36,25 +46,27 @@ export default function Navbar() {
                                         <DropdownMenuLabel className="font-normal">
                                             <div className="flex flex-col space-y-1">
                                                 <p className="text-sm font-medium leading-none">{session.user.name}</p>
-                                                <p  className="text-xs leading-none text-muted-foreground">{session.user.email}</p>
+                                                <p className="text-xs leading-none text-muted-foreground">{session.user.email}</p>
                                             </div>
                                         </DropdownMenuLabel>
-                                        <SignoutButton /> 
+                                        {profile && (<DropdownMenuItem onClick={() => setIsEditingProfile(true)}><Edit2 className="mr-2 h-4 w-4" />Edit Profile</DropdownMenuItem>)}
+                                        <SignoutButton />
                                     </DropdownMenuGroup>
                                 </DropdownMenuContent>
                             </DropdownMenu>
-
-
                         </>
                     ) : (
                         <>
-                            <Link href="/login" ><Button variant="ghost" className="text-gray-700 hover:text-black">Login</Button></Link>
+                            <Link href="/login"><Button variant="ghost" className="text-gray-700 hover:text-black">Login</Button></Link>
                             <Link href="/sign-up"><Button className="bg-primary hover:text-primary/90">Sign Up</Button></Link>
                         </>
                     )}
                 </div>
             </div>
 
+
         </nav>
+        {profile && <EditProfile profile={profile} open={isEditingProfile} setOpen={setIsEditingProfile} />}
+    </>
     )
 }
