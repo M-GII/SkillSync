@@ -14,7 +14,7 @@ return (
                 <Button onClick ={() => setActiveImageIndex("track-progress")} className={`text-muted-foreground rounded-lg px-6 py-3 text-sm font-medium transition-colors ${activeImageIndex === "track-progress" ? "bg-primary text-white" : "bg-gray-100 text-gray-700 hover:bg-gray-200"}`}> Track Progress</Button>
               </div>
               <div className="relative mx-auto max-w-5xl overflow-hidden rouned-lg border border-gray-200 shadow-xl">
-                {activeImageIndex === "organize" && <Image src="/hero-images/hero1.png" alt="Organize Applications" width={1200} height={800} /> }
+                {activeImageIndex === "organize" && <Image src="/hero-images/Hero.png" alt="Organize Applications" loading="eager" width={1200} height={800} /> }
                 {activeImageIndex === "get-hired" && <Image src="/hero-images/hero2.png" alt="Get Hired" width={1200} height={800} /> }
                 {activeImageIndex === "track-progress" && <Image src="/hero-images/hero3.png" alt="Track Progress" width={1200} height={800} /> }
               </div>

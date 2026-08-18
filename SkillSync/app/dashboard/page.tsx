@@ -2,7 +2,7 @@ import { getSession } from "@/lib/auth/auth";
 import  connectDB  from "@/lib/db";
 import Board from "@/lib/models/board";
 import { redirect } from "next/navigation";
-import  KanbanBoard  from "@/components/application-board";
+import  ApplicationBoard  from "@/components/application-board";
 import { Suspense } from "react";
 
 async function getBoard(userId:string){
@@ -30,7 +30,7 @@ async function DashboardPage(){
                     <h1 className="text-3xl font-bold text-black">{board.name}</h1>
                     <p className="text-gray-600"> Track your job applications</p>
                 </div>
-                <KanbanBoard board={board} userId={session.user.id} />
+                <ApplicationBoard board={board} userId={session.user.id} />
             </div>
         </div>
     ) 

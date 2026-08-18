@@ -66,7 +66,7 @@ function SortableJobCard({job,columns}:{job:JobApplication; columns:Column[]}){
     )
 }
 
-export default function KanbanBoard({ board, userId }:ApplicationBoardProps) {
+export default function ApplicationBoard({ board, userId }:ApplicationBoardProps) {
     const columns=board.columns
 
     const sortedColumns= columns?.sort((a,b) => a.order - b.order) || []
