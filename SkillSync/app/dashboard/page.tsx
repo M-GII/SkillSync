@@ -2,7 +2,7 @@ import { getSession } from "@/lib/auth/auth";
 import  connectDB  from "@/lib/db";
 import Board from "@/lib/models/board";
 import { redirect } from "next/navigation";
-import  KanbanBoard  from "@/components/kanban-board";
+import  KanbanBoard  from "@/components/application-board";
 import { Suspense } from "react";
 
 async function getBoard(userId:string){
