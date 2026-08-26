@@ -11,6 +11,7 @@ import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, D
 import { Label } from "./ui/label";
 import { Input } from "./ui/input";
 import { Textarea } from "./ui/textarea";
+import AnalysisDialog from "@/components/analysis-dialog"
 
 interface JobApplicationCardProps {
     job: JobApplication;
@@ -19,6 +20,7 @@ interface JobApplicationCardProps {
 
 export default function JobApplicationCard({ job, columns }: JobApplicationCardProps) {
     const [isEditing, setIsEditing] = useState(false);
+    const [isAnalyzing, setIsAnalyzing] = useState(false);
 
     const [formData, setFormData] = useState({
         company: job.company,
@@ -93,6 +95,9 @@ export default function JobApplicationCard({ job, columns }: JobApplicationCardP
                                     <Edit2 className="mr-2 h-4 w-4" />
                                     Edit
                                 </DropdownMenuItem>
+                                 <DropdownMenuItem onClick={() => setIsAnalyzing(true)}>
+                                    Analyze
+                                </DropdownMenuItem>
 
                                 {columns.length > 1 && columns.filter((column) => column._id !== job.columnId).map((column) => (<DropdownMenuItem key={column._id} onClick={() => handleMove(column._id)}>Move to {column.name}</DropdownMenuItem>))}
 
@@ -160,6 +165,7 @@ export default function JobApplicationCard({ job, columns }: JobApplicationCardP
                     </form>
                 </DialogContent>
             </Dialog>
+            <AnalysisDialog open={isAnalyzing} onOpenChange={setIsAnalyzing} job={job}/>
         </>
     );
 }

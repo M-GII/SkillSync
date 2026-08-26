@@ -7,6 +7,7 @@ import { Button } from "./ui/button";
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "./ui/dialog";
 import { Label } from "./ui/label";
 import { Input } from "./ui/input";
+import { Textarea } from "./ui/textarea";
 
 export default function EditProfile({ profile, open, setOpen }: { profile: Profile; open: boolean; setOpen: (open: boolean) => void }) {
     const [formData, setFormData] = useState({
@@ -14,6 +15,7 @@ export default function EditProfile({ profile, open, setOpen }: { profile: Profi
         education: profile.education || "",
         skills: profile.skills?.join(", ") || "",
         desiredRole: profile.desiredRole || "",
+        summary:profile.summary || "",
         yearsExperience: profile.yearsExperience?.toString() || "",
     });
 
@@ -71,6 +73,16 @@ export default function EditProfile({ profile, open, setOpen }: { profile: Profi
                                 <Input id="profileYearsExperience" type="number" min={0} value={formData.yearsExperience} onChange={(e) => setFormData({ ...formData, yearsExperience: e.target.value })} />
                             </div>
                         </div>
+                        <div className="space-y-2">
+                        <Label htmlFor="summary">Summary / Bio</Label>
+                        <Textarea
+                            id="summary"
+                            placeholder="Briefly describe your background, experience, interests, and career goals..."
+                            className="w-full min-w-0 max-w-full h-28 resize-none overflow-y-auto"
+                            value={formData.summary}
+                            onChange={(e) => setFormData({...formData , summary: e.target.value})}
+                        />
+                    </div>
 
                         <DialogFooter>
                             <Button type="button" variant="outline" onClick={() => setOpen(false)}>Cancel</Button>

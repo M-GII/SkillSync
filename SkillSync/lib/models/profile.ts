@@ -7,6 +7,7 @@ export interface IProfile extends Document {
     education?: string;
     skills?: string[];
     desiredRole?: string;
+    summary?:string;
     yearsExperience?: number;
     createdAt: Date;
     updatedAt: Date;
@@ -19,6 +20,7 @@ const ProfileSchema = new Schema<IProfile>({
     education: { type: String, default: "" },
     skills: [{ type: String }],
     desiredRole: { type: String, default: "" },
+    summary:{type:String,default:''},
     yearsExperience: { type: Number, default: 0 },
 }, { timestamps: true });
 

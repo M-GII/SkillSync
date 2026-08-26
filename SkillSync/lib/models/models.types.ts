@@ -34,5 +34,18 @@ export interface Profile {
     education?: string;
     skills?: string[];
     desiredRole?: string;
+    summary?:string;
     yearsExperience?: number;
+}
+
+export interface AnalysisResult {
+    _id: string;
+    userId: string;
+    jobId: string;
+    keywordMatch: number;
+    semanticScore: number;
+    overallMatch: number;
+    matchedSkills: string[];
+    missingSkills: string[];
+    explanation: string;
 }

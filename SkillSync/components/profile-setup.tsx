@@ -7,6 +7,7 @@ import { Label } from "@/components/ui/label"
 import { useRouter, useSearchParams } from "next/navigation"
 import { useState } from "react"
 import { saveProfile } from "@/lib/actions/profile"
+import { Textarea } from "./ui/textarea"
 
 export default function ProfileSetup() {
     const searchParams = useSearchParams()
@@ -16,6 +17,7 @@ export default function ProfileSetup() {
     const [skills, setSkills] = useState("")
     const [desiredRole, setDesiredRole] = useState("")
     const [yearsExperience, setYearsExperience] = useState("")
+    const[summary,setSummary]= useState("")
     const [error, setError] = useState("")
     const [loading, setLoading] = useState(false)
 
@@ -27,7 +29,7 @@ export default function ProfileSetup() {
         setLoading(true)
         try {
             const skillsArray = skills.split(",").map((s) => s.trim()).filter(Boolean)
-            const result = await saveProfile({ fullName, location, education, skills: skillsArray, desiredRole, yearsExperience: yearsExperience ? Number(yearsExperience) : 0, })
+            const result = await saveProfile({ fullName, location, education, skills: skillsArray, desiredRole, summary, yearsExperience: yearsExperience ? Number(yearsExperience) : 0, })
 
             if (result.error) {
                 setError(result.error)
@@ -83,11 +85,22 @@ export default function ProfileSetup() {
                                 <Input value={desiredRole} onChange={(e) => setDesiredRole(e.target.value)} className="border-gray-300 focus:border-primary focus:ring-primary" id="desiredRole" type="text" placeholder="Software Engineer Co-op" />
                             </div>
 
+
                             <div className="space-y-2">
                                 <Label htmlFor="yearsExperience" className="text-gray-700">Years of experience</Label>
                                 <Input value={yearsExperience} onChange={(e) => setYearsExperience(e.target.value)} className="border-gray-300 focus:border-primary focus:ring-primary" id="yearsExperience" type="number" min={0} placeholder="1" />
                             </div>
                         </div>
+                        <div className="space-y-2">
+                    <Label htmlFor="summary">Summary / Bio</Label>
+                    <Textarea
+                        id="summary"
+                        placeholder="Briefly describe your background, experience, interests, and career goals..."
+                        className="w-full min-w-0 max-w-full h-28 resize-none overflow-y-auto"
+                        value={summary}
+                        onChange={(e) => setSummary(e.target.value)}
+                    />
+                    </div>
                 </CardContent>
                 <CardFooter className="flex flex-col space-y-4">
                     <Button disabled={loading} className="w-full bg-primary hover:bg-primary/90" type="submit">

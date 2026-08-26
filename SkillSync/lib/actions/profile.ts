@@ -11,6 +11,7 @@ interface ProfileData {
     education?: string;
     skills?: string[];
     desiredRole?: string;
+    summary?:string;
     yearsExperience?: number;
 }
 
@@ -21,7 +22,7 @@ export async function saveProfile(data: ProfileData) {
 
     await connectDB();
 
-    const { fullName, location, education, skills, desiredRole, yearsExperience } = data;
+    const { fullName, location, education, skills, desiredRole,summary, yearsExperience } = data;
 
     if (!fullName) return { error: "Full name is required" };
 
@@ -34,6 +35,7 @@ export async function saveProfile(data: ProfileData) {
             education: education || "",
             skills: skills || [],
             desiredRole: desiredRole || "",
+            summary: summary || "",
             yearsExperience: yearsExperience || 0,
         },
         { returnDocument: "after", upsert: true}
@@ -47,6 +49,7 @@ export async function updateProfile(updates: {
     education?: string;
     skills?: string[];
     desiredRole?: string;
+    summary?:string;
     yearsExperience?: number;
 }) {
     const session = await getSession();
@@ -62,4 +65,24 @@ export async function updateProfile(updates: {
     revalidatePath("/dashboard");
 
     return { data: JSON.parse(JSON.stringify(profile)) };
+
+
+}
+export async function getProfile() {
+    try {
+        const session = await getSession();
+
+        if (!session?.user) return { error: "Unauthorized" };
+
+        await connectDB();
+
+        const profile = await Profile.findOne({ userId: session.user.id }).lean();
+
+        if (!profile) return { error: "Profile not found" };
+
+        return { profile: JSON.parse(JSON.stringify(profile)) };
+    } catch (err) {
+        console.error("Failed to get profile:", err);
+        return { error: "Failed to get profile" };
+    }
 }
