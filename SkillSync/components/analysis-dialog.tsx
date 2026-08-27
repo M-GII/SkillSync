@@ -76,7 +76,6 @@ export default function AnalysisDialog({ open, onOpenChange, job }: AnalysisDial
                 setError("Failed to get profile");
                 return;
             }
-            console.log("Analyzer API:", analyzerApi);
 
             const response = await fetch(`${analyzerApi}/analyze`, {
                 method: "POST",
