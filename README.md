@@ -6,7 +6,6 @@ SkillSync is a full-stack job application tracker that helps users organize appl
 
 - Track job applications across different stages
 - Add job descriptions, skills, notes, salary, location, and job links
-- Drag-and-drop application board
 - Create and edit a user profile
 - Analyze jobs against profile skills and profile summary
 - Keyword-based skill matching
@@ -24,7 +23,6 @@ SkillSync is a full-stack job application tracker that helps users organize appl
 - TypeScript
 - Tailwind CSS
 - shadcn/ui
-- dnd-kit
 
 ### Backend
 - Next.js Server Actions
