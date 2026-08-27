@@ -8,26 +8,33 @@ const client = new MongoClient(process.env.MONGO_URI!);
 const db = client.db();
 export const auth = betterAuth({
     database: mongodbAdapter(db, { client }),
-    session:{cookieCache:
-        {
-            enabled:true,
-            maxAge:60*60
-        }
 
+    trustedOrigins: [
+        "https://skillsync-gules-six.vercel.app",
+    ],
+
+    session: {
+        cookieCache: {
+            enabled: true,
+            maxAge: 60 * 60,
+        },
     },
-    emailAndPassword: { enabled: true },
+
+    emailAndPassword: {
+        enabled: true,
+    },
+
     databaseHooks: {
         user: {
             create: {
                 after: async (user) => {
                     if (user.id) {
-                        await initUserBoard(user.id);
+                        await initUserBoard(user.id)
                     }
-                }
-            }
-        }
-    }
-
+                },
+            },
+        },
+    },
 })
 
 export async function getSession() {
