@@ -30,6 +30,8 @@ export default function AnalysisDialog({ open, onOpenChange, job }: AnalysisDial
     const [checking, setChecking] = useState(false);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState("");
+    const analyzerApi = process.env.NEXT_PUBLIC_ANALYZER_API;
+
 
     const jobId = String(job._id);
 
@@ -74,8 +76,9 @@ export default function AnalysisDialog({ open, onOpenChange, job }: AnalysisDial
                 setError("Failed to get profile");
                 return;
             }
+            console.log("Analyzer API:", analyzerApi);
 
-            const response = await fetch("http://127.0.0.1:8000/analyze", {
+            const response = await fetch(`${analyzerApi}/analyze`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
