@@ -1,13 +1,14 @@
 import { betterAuth } from "better-auth";
 import { mongodbAdapter } from "better-auth/adapters/mongodb";
-import { MongoClient } from "mongodb";
 import { redirect } from "next/navigation";
 import { headers } from "next/headers";
 import { initUserBoard } from "../init-user-board";
-const client = new MongoClient(process.env.MONGO_URI!);
-const db = client.db();
+import { mongoClient } from "@/lib/mongodb-client";
+
+const db = mongoClient.db();
+
 export const auth = betterAuth({
-    database: mongodbAdapter(db, { client }),
+    database: mongodbAdapter(db, { client: mongoClient }),
 
     trustedOrigins: [
         "https://skill-sync-gules-six.vercel.app",
@@ -29,26 +30,28 @@ export const auth = betterAuth({
             create: {
                 after: async (user) => {
                     if (user.id) {
-                        await initUserBoard(user.id)
+                        await initUserBoard(user.id);
                     }
                 },
             },
         },
     },
-})
+});
 
 export async function getSession() {
     const result = await auth.api.getSession({
-        headers: await headers()
-    })
-    return result
+        headers: await headers(),
+    });
+
+    return result;
 }
 
 export async function signOut() {
     const result = await auth.api.signOut({
-        headers: await headers()
-    })
+        headers: await headers(),
+    });
+
     if (result.success) {
-        redirect("/login")
+        redirect("/login");
     }
 }
