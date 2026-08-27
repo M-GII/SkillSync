@@ -102,7 +102,7 @@ https://skill-sync-gules-six.vercel.app
 Clone the repository:
 
 ```bash
-git clone <your-repository-url>
+git clone https://github.com/M-GII/SkillSync.git
 cd SkillSync
 ```
 
