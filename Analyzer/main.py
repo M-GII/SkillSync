@@ -11,7 +11,7 @@ app = FastAPI()
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=[" http://localhost:3000", "https://skill-sync-gules-six.vercel.app" ],
     allow_credentials=False,
     allow_methods=["*"],
     allow_headers=["*"],
