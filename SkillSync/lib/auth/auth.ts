@@ -10,7 +10,7 @@ export const auth = betterAuth({
     database: mongodbAdapter(db, { client }),
 
     trustedOrigins: [
-        "https://skillsync-gules-six.vercel.app",
+        "https://skill-sync-gules-six.vercel.app",
     ],
 
     session: {
